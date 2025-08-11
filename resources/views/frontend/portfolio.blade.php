@@ -41,7 +41,7 @@
                     </figure>
                     <div class="portfolio-content">
                         <a href="{{asset('frontend/assets/images/portfolio-1.jpg')}}" data-lity class="icon"><i class="fas fa-plus"></i></a>
-                        <h4 class="title"><a href="portfolio-details.blade.php">Black Golden</a></h4>
+                        <h4 class="title"><a href="portfolio-details">Black Golden</a></h4>
                         <div class="desc">
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                         </div>

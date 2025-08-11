@@ -13,6 +13,8 @@ use App\Models\PortfolioSectionSetting;
 use App\Models\Service;
 use App\Models\Blog;
 use App\Models\Course;
+use App\Models\CourseContent;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -32,7 +34,7 @@ class HomeController extends Controller
 
         return view( 'frontend.home' ,compact(
             'hero',
-'services',
+        'services',
         'about',
         'portfolioTitle',
         'portfolioCategories',
@@ -43,6 +45,12 @@ class HomeController extends Controller
 
     ));
     }
+    // public function portfolio()
+    // {
+    // $portfolios = PortfolioItem::all();
+    // return view('frontend.portfolio', compact('portfolios'));
+    // }
+
     public function showPortfolio($id){
         $portfolio= PortfolioItem::findOrFail($id);
         return view('frontend.portfolio-details',compact('portfolio'));
@@ -69,6 +77,16 @@ class HomeController extends Controller
         $nextPost=Course::where('id','>',$course->id)->orderBy('id','asc')->first();
         return view('frontend.course-details',compact('course','previousPost','nextPost'));
     }
+
+     public function showCourseContents($courseId)
+{
+    $course = Course::findOrFail($courseId);
+    $contents = CourseContent::where('course_id', $courseId)->paginate(9);
+
+    return view('frontend.course-content', compact('course', 'contents'));
+}
+
+   
 
 
     public function course()

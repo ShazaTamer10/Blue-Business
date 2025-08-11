@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\CourseContentDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseContent;
@@ -10,89 +8,68 @@ use Illuminate\Http\Request;
 
 class CourseContentController extends Controller
 {
-    public function index(CourseContentDataTable $dataTable, $courseId)
+    public function index(Course $course)
     {
-        $course = Course::findOrFail($courseId);
-        return $dataTable->with('course_id', $courseId)->render('admin.course_content.index', compact('course'));
+        $contents = $course->contents()->orderBy('order')->get();
+        return view('admin.course-content.index', compact('course', 'contents'));
     }
 
-    public function create($courseId)
+    public function create(Course $course)
     {
-        $course = Course::findOrFail($courseId);
-        return view('admin.course_content.create', compact('course'));
+        return view('admin.course-content.create', compact('course'));
     }
 
-    public function store(Request $request, $courseId)
+    public function store(Request $request, Course $course)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'type' => 'required|in:pdf,video',
-            'file' => 'required|file|max:20480', // 20MB limit
+            'description' => 'nullable|string',
+            'video_url' => 'nullable|string',
+            'pdf_path' => 'nullable|file|mimes:pdf',
+            'order' => 'nullable|integer',
         ]);
 
-        $path = $request->file('file')->store('course_contents', 'public');
-
-        CourseContent::create([
-            'course_id' => $courseId,
-            'title' => $request->title,
-            'type' => $request->type,
-            'file_path' => $path,
-        ]);
-
-        toastr()->success('Content uploaded successfully');
-        return redirect()->route('admin.course.content.index', $courseId);
-    }
-
-    public function edit($courseId, $id)
-    {
-        $course = Course::findOrFail($courseId);
-        $content = CourseContent::findOrFail($id);
-        return view('admin.course_content.edit', compact('course', 'content'));
-    }
-
-    public function update(Request $request, $courseId, $id)
-    {
-        $content = CourseContent::findOrFail($id);
-
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'type' => 'required|in:pdf,video',
-            'file' => 'nullable|file|max:20480',
-        ]);
-
-        if ($request->hasFile('file')) {
-            deleteFileItExist($content->file_path); // your helper
-            $path = $request->file('file')->store('course_contents', 'public');
-            $content->file_path = $path;
+        $data = $request->only('title', 'description', 'video_url', 'order');
+        if ($request->hasFile('pdf_path')) {
+            $data['pdf_path'] = $request->file('pdf_path')->store('course_pdfs', 'public');
         }
 
-        $content->title = $request->title;
-        $content->type = $request->type;
-        $content->save();
+        $course->contents()->create($data);
 
-        toastr()->success('Content updated successfully');
-        return redirect()->route('admin.course.content.index', $courseId);
+        return redirect()->route('admin.courses.contents.index', $course->id)
+            ->with('success', 'Content added successfully.');
     }
 
-
-    public function showCourseContents($courseId)
+    public function edit(Course $course, CourseContent $content)
     {
-        // Get all contents (PDFs/videos) for this course, paginated (9 per page)
-        $contents = CourseContent::where('course_id', $courseId)->paginate(9);
-
-        // Return the frontend view with the contents data
-        return view('frontend.course_contents', compact('contents'));
+        return view('admin.course-content.edit', compact('course', 'content'));
     }
 
-
-
-    public function destroy($courseId, $id)
+    public function update(Request $request, Course $course, CourseContent $content)
     {
-        $content = CourseContent::findOrFail($id);
-        deleteFileItExist($content->file_path);
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'video_url' => 'nullable|string',
+            'pdf_path' => 'nullable|file|mimes:pdf',
+            'order' => 'nullable|integer',
+        ]);
+
+        $data = $request->only('title', 'description', 'video_url', 'order');
+        if ($request->hasFile('pdf_path')) {
+            $data['pdf_path'] = $request->file('pdf_path')->store('course_pdfs', 'public');
+        }
+
+        $content->update($data);
+
+        return redirect()->route('admin.course.content.index', $course->id)
+            ->with('success', 'Content updated successfully.');
+    }
+
+    public function destroy(Course $course, CourseContent $content)
+    {
         $content->delete();
-
-        return response()->json(['success' => true]);
+        return redirect()->route('admin.courses.contents.index', $course->id)
+            ->with('success', 'Content deleted successfully.');
     }
 }
-

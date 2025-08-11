@@ -91,9 +91,25 @@
         <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Course</span></a>
             <ul class="dropdown-menu" style="display: none;">
-                <li><a class="nav-link" href="{{route('admin.course-category.index')}}">Category</a></li>
+                {{-- <li><a class="nav-link" href="{{route('admin.course-category.index')}}">Category</a></li> --}}
                 <li><a class="nav-link" href="{{route('admin.course.index')}}">Course List</a></li>
-                <li><a class="nav-link" href="{{route('admin.course-category.index')}}">Course Content</a></li>
+             
+         {{-- <li>
+    <a class="nav-link" href="{{ route('admin.course.contents.index', $course->id) }}">
+        Course Content
+    </a>
+</li> --}}
+
+                {{-- <li>
+  @isset($course)
+      <a class="nav-link" href="{{ route('admin.course.contents.index', $course->id) }}">Course Content</a>
+  @else
+      <a class="nav-link"  href="{{ route('admin.course.index') }}">Course Content</a>
+  @endisset
+</li> --}}
+
+        
+            <li><a class="nav-link" href="{{route('admin.course-applications.index')}}">Applications List</a></li>
 
                 {{-- <li><a class="nav-link" href="{{route('admin.course-setting.index')}}">Section Settings</a></li> --}}
 
@@ -104,3 +120,5 @@
 </ul>
 </aside>
 </div>
+
+               

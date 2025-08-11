@@ -15,8 +15,10 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TyperTitleController;
+use App\Http\Controllers\Admin\CourseApplicationController;
 use App\Http\Controllers\CourseSectionSetting;
 use App\Http\Controllers\Frontend\HomeController;
+
 
 
 use GuzzleHttp\Middleware;
@@ -74,8 +76,11 @@ Route::get('blogs', [HomeController::class, 'blog'])->name('blog');
 Route::post('contact', action: [HomeController::class, 'contact'])->name('contact');
 Route::get('courses', [HomeController::class, 'course'])->name('course');
 Route::get('course-details/{id}', [HomeController::class, 'showCourse'])->name('show.course');
+Route::get('/courses/{id}/apply', [CourseController::class, 'apply'])->name('course.apply');
+Route::post('/courses/{id}/apply', [CourseController::class, 'submitApplication'])->name('course.submitApplication');
 
-Route::get('course/{id}/contents', [CourseController::class, 'showCourseContents'])
+
+Route::get('course/{id}/contents', [HomeController::class, 'showCourseContents'])
     ->name('course.contents');
 
 
@@ -94,7 +99,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin','as' => 'admin.'], f
     Route::resource('blog-section-setting', BlogSectionSettingController::class);
     Route::resource('course-category', CourseCategoryController::class);
     Route::resource('course', CourseController::class);
-    Route::resource('course-content', CourseContentController::class);
-    Route::resource('course-section-setting', CourseSectionSetting::class);
+    Route::resource('course.contents', CourseContentController::class);
+    Route::resource('course-applications', CourseApplicationController::class);
+
+
+   // Route::resource('course-section-setting', CourseSectionSetting::class);
 });
 

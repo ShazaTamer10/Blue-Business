@@ -27,16 +27,18 @@
                         <img src="{{asset($course->image)}}" alt="">
                     </figure>
                     <div class="blog-content">
-                        <h3 class="title"><a href="course-details.html">{{$course->title}}</a></h3>
+                        <h3 class="title"><a href="{{ route('show.course', $course->id) }}">{{$course->title}}</a></h3>
                         <div class="desc">
                             <p>{!! Str::limit($course->description,150,'...') !!}</p>
                         </div>
-                        <a href="#" class="button-primary-trans mouse-dir">Read More <span
-                                class="dir-part"></span> <i class="fal fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+                        
+                       <a href="{{ route('show.course', $course->id) }}" class="button-primary-trans mouse-dir">
+                             Read More <span class="dir-part"></span> <i class="fal fa-arrow-right"></i>
+                                     </a>
 
+                               </div>
+                             </div>
+ 
             @endforeach
 
         </div>

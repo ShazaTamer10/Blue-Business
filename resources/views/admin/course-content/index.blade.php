@@ -1,32 +1,38 @@
 @extends('admin.layouts.layout')
 
 @section('content')
-<section class="section">
-  <div class="section-header">
-    <div class="section-header-back">
-      <a href="{{ route('admin.course.index') }}" class="btn btn-icon">
-        <i class="fas fa-arrow-left"></i>
-      </a>
-    </div>
-    <h1>Content for: {{ $course->title }}</h1>
-    <div class="section-header-button ml-auto">
-      <a href="{{ route('admin.course.content.create', $course->id) }}" class="btn btn-success">
-        <i class="fas fa-plus"></i> Add Content
-      </a>
-    </div>
-  </div>
+<h1>Contents of: {{ $course->title }}</h1>
 
-  <div class="section-body">
-    <div class="card">
-      <div class="card-header"><h4>All Course Content</h4></div>
-      <div class="card-body">
-        {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
-      </div>
-    </div>
-  </div>
-</section>
+<a href="{{ route('admin.course.contents.create', $course->id) }}" class="btn btn-primary mb-3">Add New Content</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Order</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($contents as $content)
+        <tr>
+            <td>{{ $content->title }}</td>
+            <td>{{ $content->order }}</td>
+            <td>
+                <a href="{{ route('admin.course.contents.edit', [$course->id, $content->id]) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                <form action="{{ route('admin.course.contents.destroy', [$course->id, $content->id]) }}" method="POST" style="display:inline-block;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+{{ $contents->links() }}
+
+<a href="{{ route('admin.course.index') }}" class="btn btn-secondary mt-3">Back to Courses</a>
 @endsection
-
-@push('scripts')
-  {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
