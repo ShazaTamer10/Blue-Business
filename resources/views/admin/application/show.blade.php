@@ -2,8 +2,10 @@
 @extends('admin.layouts.layout')
 
 @section('content')
+<br>
 <div class="container mt-4">
-    {{-- <h2>Application Details</h2> --}}
+
+{{-- <h2 class="fw-bold display-5">Application Details</h2> --}}
 
     <div class="card mt-3">
         <div class="card-body">

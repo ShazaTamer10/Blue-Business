@@ -27,7 +27,27 @@
             <div class="col-sm-12">
                 <h2 class="head-title">{{$portfolio->title}}</h2>
                 <figure class="image-block">
-                    <img src="{{asset($portfolio->image)}}" alt="" class=".img-fix">
+<div class="image-container" style="text-align: center;">
+    <img src="{{ asset($portfolio->image) }}" alt="{{ $portfolio->title }}"
+         style="width: 100%; max-width: 800px; height: auto; border-radius: 8px;">
+</div>
+
+<div class="portfolio-gallery">
+<br>
+    <div class="row">
+        @foreach($portfolio->images as $image)
+            <div class="col-md-4 mb-3">
+                <img src="{{ asset('storage/' . $image->image) }}" class="img-fluid rounded" alt="">
+            </div>
+        @endforeach
+    </div>
+</div>
+
+ <div class="description">
+                    {!!$portfolio->description!!}
+
+                </div>
+
                 </figure>
                 <div class="portflio-info">
                     <div class="single-info">
@@ -44,10 +64,7 @@
                         <p>Online Camopaigns & Web Development</p>
                     </div> --}}
                 </div>
-                <div class="description">
-                    {!!$portfolio->description!!}
-
-                </div>
+               
             </div>
         </div>
     </div>

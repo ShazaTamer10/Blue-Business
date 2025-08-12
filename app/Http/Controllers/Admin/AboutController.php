@@ -61,7 +61,7 @@ class AboutController extends Controller
         $request->validate([
             'title'=> ['required', 'max:200'],
             'description'=> ['required', 'max:200'],
-            'image'=>['required', 'image'],
+            'image'=>['nullable', 'image'],
             // 'profile'=>['mimes:pds,csv,txt', 'max: 10000']
         ]);
 
@@ -79,24 +79,17 @@ class AboutController extends Controller
         $imagePath =handleUpload('image',$about);
        // $profilePath= handleUpload('profile',$about);
 
-        About::updateOrCreate(
-            ['id' => $id],
-            [
-                    'title'=>$request->title,
-                    'description'=> $request->description,
-                    'image'=>(!empty($imagePath) ? $imagePath : $about->image??null),
-                    // 'profile'=>(!empty($profilePath) ? $profilePath : $about->profile??null)
-            ]);
+        $about->update([
+    'title'       => $request->title,
+    'description' => $request->description,
+    'image'       => !empty($imagePath) ? $imagePath : $about->image,
+]);
+
             toastr()->success('Updated Successfully!', 'Congrats');
             return redirect()->back();
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+   
 }
+

@@ -57,17 +57,6 @@ class BlogController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
-//    public function showBlog($id)
-// {
-//     $blog = Blog::findOrFail($id);
-//     $previousPost = Blog::where('id', '<', $id)->orderBy('id', 'desc')->first();
-//     $nextPost = Blog::where('id', '>', $id)->orderBy('id')->first();
-
-//     return view('frontend.blog-details', compact('blog', 'previousPost', 'nextPost'));
-// }
 
     /**
      * Show the form for editing the specified resource.

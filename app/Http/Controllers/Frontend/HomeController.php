@@ -45,11 +45,15 @@ class HomeController extends Controller
 
     ));
     }
-    // public function portfolio()
-    // {
-    // $portfolios = PortfolioItem::all();
-    // return view('frontend.portfolio', compact('portfolios'));
-    // }
+    
+    public function portfolio()
+{
+    $portfolioItems = PortfolioItem::all();
+    $portfolioCategories = Category::all();
+
+    return view('frontend.portfolio', compact('portfolioItems', 'portfolioCategories'));
+}
+
 
     public function showPortfolio($id){
         $portfolio= PortfolioItem::findOrFail($id);
@@ -66,7 +70,7 @@ class HomeController extends Controller
 
     public function blog()
     {
-        $blogs= Blog::latest()->paginate(1);
+        $blogs= Blog::latest()->paginate(3);
         return view('frontend.blog',compact('blogs'));
     }
 
@@ -97,15 +101,17 @@ class HomeController extends Controller
 
     public function contact(Request $request)
     {
-        $request->validate([
-            'name'=>['required','max:100'],
-            'subject'=>['required','max:500'],
-            'email'=>['required','email'],
-            'message'=>['required','max:1000'],
-        ]);
-
-        Mail::send(new ContactMail($request->all()));
-        return response(['status'=> 'success','message' => 'Mail Sended Successfully!']);
+        dd($request->all());
     }
+        // $request->validate([
+        //     'name'=>['required','max:100'],
+        //     'subject'=>['required','max:500'],
+        //     'email'=>['required','email'],
+        //     'message'=>['required','max:1000'],
+        // ]);
+
+        // Mail::send(new ContactMail($request->all()));
+        // return response(['status'=> 'success','message' => 'Mail Sended Successfully!']);
+    
 
 }

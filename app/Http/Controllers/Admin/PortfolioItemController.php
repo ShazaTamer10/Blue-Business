@@ -6,6 +6,8 @@ use App\DataTables\PortfolioItemDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\PortfolioItem;
+use App\Models\PortfolioImage;
+
 use Illuminate\Http\Request;
 
 class PortfolioItemController extends Controller
@@ -45,7 +47,9 @@ class PortfolioItemController extends Controller
             'description'=> ['required'],
             'category_id'=>['required','numeric'],
             'client'=>['max:200'],
-            'website'=>['url']
+            'website' => ['nullable', 'url'],
+   
+           'additional_images.*' => ['nullable', 'image', 'max:5000'],
 
 
         ]);
@@ -59,6 +63,16 @@ class PortfolioItemController extends Controller
         $portfolioItem->client=$request->client;
         $portfolioItem->website=$request->website;
         $portfolioItem->save();
+
+        if ($request->hasFile('additional_images')) {
+    foreach ($request->file('additional_images') as $imageFile) {
+        $path = $imageFile->store('portfolio/images', 'public');
+        PortfolioImage::create([
+            'portfolio_item_id' => $portfolioItem->id,
+            'image' => $path,
+        ]);
+    }
+}
         toastr()->success('Profile Item Created Successfully!', 'Success');
         return redirect()->route('admin.portfolio-item.index');
 
@@ -92,7 +106,8 @@ class PortfolioItemController extends Controller
             'description'=> ['required'],
             'category_id'=>['required','numeric'],
             'client'=>['max:200'],
-            'website'=>['url']
+            'website' => ['nullable', 'url'],
+
 
 
         ]);

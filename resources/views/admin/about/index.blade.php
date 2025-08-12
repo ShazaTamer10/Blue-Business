@@ -26,7 +26,7 @@
                 <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                 <div class="col-sm-12 col-md-7">
-                  <input type="text" name="title" class="form-control" value="{{$about->title}}">
+                  <input type="text" name="title" class="form-control" value="{{$about->title?? ''}}">
                 </div>
 
 
@@ -35,11 +35,17 @@
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
                     <div class="col-sm-12 col-md-7">
-                    <textarea name= "description" class="summernote">{!!$about->description!!}</textarea>
+                    <textarea name= "description" class="summernote">{!!$about->description?? '' !!}</textarea>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
+                    @if(!empty($about->image))
+                           <img src="{{ asset($about->image) }}" alt="">
+                           
+                    @endif
+                
+
                     <div class="col-sm-12 col-md-7">
                       <div id="image-preview" class="image-preview">
                         <label name="file" for="image-upload" id="image-label">Choose File</label>
@@ -76,13 +82,15 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
-        $('#image-preview').css({
-            'background-image': 'url("{{asset($about->image)}}")',
-            'background-size':'cover',
-            'background-position':'center center'
-        })
-    })
+        @if(!empty($about->image))
+            $('#image-preview').css({
+                'background-image': 'url("{{ asset($about->image) }}")',
+                'background-size': 'cover',
+                'background-position': 'center center'
+            });
+        @endif
+    });
 </script>
-
 @endpush
+
 

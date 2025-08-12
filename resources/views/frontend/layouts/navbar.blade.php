@@ -11,13 +11,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#home-page">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/portfolio">Portfolio <i class="fas fa-angle-down"></i></a>
+                    <a class="nav-link" href="/portfolio">Portfolio </a>
                     {{-- <ul class="sub_menu">
                         <li><a href="portfolio.html">Portfolio Grid</a></li>
                     </ul>
@@ -27,14 +27,14 @@
                 </li> --}}
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/courses">Courses <i class="fas fa-angle-down"></i></a>
+                    <a class="nav-link" href="/courses">Courses</a>
                     {{-- <ul class="sub_menu">
                         <li><a href="course.html">Course Grid</a></li>
                     </ul>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#contact-page">Contact</a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('blog')}}">Blogs</a>

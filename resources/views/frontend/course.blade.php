@@ -29,7 +29,7 @@
                     <div class="blog-content">
                         <h3 class="title"><a href="{{ route('show.course', $course->id) }}">{{$course->title}}</a></h3>
                         <div class="desc">
-                            <p>{!! Str::limit($course->description,150,'...') !!}</p>
+                            <p>{!! Str::limit($course->description,35,'...') !!}</p>
                         </div>
                         
                        <a href="{{ route('show.course', $course->id) }}" class="button-primary-trans mouse-dir">
@@ -39,9 +39,10 @@
                                </div>
                              </div>
  
-            @endforeach
+         
 
         </div>
+           @endforeach
         <div class="row">
             <div class="col-sm-12 text-center">
 
@@ -58,7 +59,7 @@
 <!-- Portfolio-Area-End -->
 
 <!-- Quote-Area-Start -->
-<section class="quote-area section-padding-bottom">
+{{-- <section class="quote-area section-padding-bottom">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -83,6 +84,6 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- Quote-Area-End -->
 @endsection

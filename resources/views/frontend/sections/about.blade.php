@@ -3,17 +3,17 @@
         <div class="row d-flex align-items-center">
             <div class="col-lg-6">
                 <figure class="about-image">
-                    <img src="{{asset($about->image)}}" alt="" class="wow fadeInUp" data-wow-delay="0.3s">
+                    <img src="{{ asset($about->image?? '' )}}" alt="" class="wow fadeInUp" data-wow-delay="0.3s">
                 </figure>
             </div>
             <div class="col-lg-6">
                 <div class="about-text">
-                    <h3 class="title wow fadeInUp" data-wow-delay="0.3s">{{$about->title}}</h3>
+                    <h3 class="title wow fadeInUp" data-wow-delay="0.3s">{{$about->title?? '' }}</h3>
                     <div class="sub-title wow fadeInUp" data-wow-delay="0.4s">
 
                     </div>
                     <div class="desc wow fadeInUp" data-wow-delay="0.4s">
-                        {!!$about->description!!}
+                        {!!$about->description?? '' !!}
                     </div>
                     {{-- <a href="#" class="button-primary-trans mouse-dir wow fadeInUp" data-wow-delay="0.5s">
                         <span class="icon"><i class="fal fa-download"></i></span>

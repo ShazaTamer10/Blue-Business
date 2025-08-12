@@ -11,8 +11,8 @@ function handleUpload($inputName, $model=null){
         }
         $file = request()->file($inputName);
         $fileName = rand().$file->getClientOriginalName();
-        $file->move(public_path('/uploads'), $fileName);
-        $filePath = "/uploads/".$fileName;
+        $file->move(public_path('uploads'), $fileName);
+        $filePath = "uploads/".$fileName;
         return $filePath;
         }
 
@@ -25,8 +25,8 @@ function handleUpload($inputName, $model=null){
 
 function deleteFileItExist($filePath){
     try{
-        if(\File::exists(public_path($filePath))){
-            \File::delete(public_path($filePath));
+        if(File::exists(public_path($filePath))){
+            File::delete(public_path($filePath));
         }
     }
     catch(\Exception $e){

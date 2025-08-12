@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="head-title">How our life is affected with social media.</h2>
+                <h2 class="head-title">{{$blog->title}}</h2>
                 <div class="blog-meta">
                     <div class="single-meta">
                         <div class="meta-title">Published</div>
@@ -65,7 +65,7 @@
 <!-- Portfolio-Area-End -->
 
 <!-- Quote-Area-Start -->
-<section class="quote-area section-padding-bottom">
+{{-- <section class="quote-area section-padding-bottom">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -87,6 +87,6 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- Quote-Area-End -->
 @endsection

@@ -7,14 +7,7 @@
             <div class="col-sm-7">
                 <h2 class="title">Blogs</h2>
             </div>
-            {{-- <div class="col-sm-5">
-                <div class="breadcrumbs">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li>Blog</li>
-                    </ul>
-                </div>
-            </div> --}}
+
         </div>
     </div>
 </header>
@@ -36,9 +29,9 @@
                     <div class="blog-content">
                         <h3 class="title"><a href="blog-details.html">{{$blog->title}}</a></h3>
                         <div class="desc">
-                            <p>{!! Str::limit($blog->description,150,'...') !!}</p>
+                            <p>{!! Str::limit($blog->description,35,'...') !!}</p>
                         </div>
-                        <a href="#" class="button-primary-trans mouse-dir">Read More <span
+                        <a href="{{ route('show.blog', $blog->id) }}" class="button-primary-trans mouse-dir">Read More<span
                                 class="dir-part"></span> <i class="fal fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -63,7 +56,7 @@
 <!-- Portfolio-Area-End -->
 
 <!-- Quote-Area-Start -->
-<section class="quote-area section-padding-bottom">
+{{-- <section class="quote-area section-padding-bottom">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -88,6 +81,6 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- Quote-Area-End -->
 @endsection

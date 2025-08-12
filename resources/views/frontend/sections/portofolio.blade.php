@@ -35,7 +35,7 @@
                                     class="fas fa-plus"></i></a>
                             <h4 class="title"><a href="{{route('show.portfolio',$item->id)}}">{{$item->title}}</a></h4>
                             <div class="desc">
-                                <p>{!!Str::limit(strip_tags($item->description),100)!!}</p>
+                                <p>{!!Str::limit(strip_tags($item->description),35)!!}</p>
                             </div>
                         </div>
                     </div>

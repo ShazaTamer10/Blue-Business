@@ -15,7 +15,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <!-- Contact-Form -->
-                <form class="contact-form" id="contact-form">
+                <form action="{{ route('contact') }}" method="POST" class="contact-form" id="contact-form" >
+                    @csrf
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-box">
@@ -65,14 +66,13 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
-                $.ajaxSetup({
-
+                    $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
             });
 
-    });
+    
 
     $(document).on('submit','#contact-form',function(e){
         e.preventDefault();
@@ -80,29 +80,29 @@
             type:"POST",
             url: "{{route('contact')}}",
             data: $(this).serialize(),
-            beforeSend: function(){
-                $('#submit_btn').prop("disabled",true);
-                $('#submit_btn').text('Loading....');
+            // beforeSend: function(){
+            //     $('#submit_btn').prop("disabled",true);
+            //     $('#submit_btn').text('Loading....');
 
-            },
+            // },
             success:function(response){
                 console.log(response)
-            },
-            error: function(response){
-                if(response.status == 422){
-                    let errorsMessage = $.parseJSON(response.responseText);
+           
+            // error: function(response){
+            //     if(response.status == 422){
+            //         let errorsMessage = $.parseJSON(response.responseText);
 
 
-                    $.each(errorsMessage.errors,function(key, val){
-                        console.log(val[0]);
-                        toastr.error(val[0])
+            //         $.each(errorsMessage.errors,function(key, val){
+            //             console.log(val[0]);
+            //             toastr.error(val[0])
 
-                    })
-                    $('#submit_btn').prop("disabled",false);
-                    $('#submit_btn').text('Send Now');
+            //         })
+            //         $('#submit_btn').prop("disabled",false);
+            //         $('#submit_btn').text('Send Now');
                 }
 
-            }
+            })
         })
     })
 

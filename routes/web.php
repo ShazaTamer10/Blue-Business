@@ -70,10 +70,11 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('portfolio', [HomeController::class, 'portfolio'])->name('portfolio');
 Route::get('portfolio-details/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
 Route::get('blog-details/{id}', [HomeController::class, 'showBlog'])->name('show.blog');
 Route::get('blogs', [HomeController::class, 'blog'])->name('blog');
-Route::post('contact', action: [HomeController::class, 'contact'])->name('contact');
+Route::post('contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('courses', [HomeController::class, 'course'])->name('course');
 Route::get('course-details/{id}', [HomeController::class, 'showCourse'])->name('show.course');
 Route::get('/courses/{id}/apply', [CourseController::class, 'apply'])->name('course.apply');

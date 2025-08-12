@@ -26,8 +26,8 @@
 <br>
 <br>
 <br>
-@include('frontend.sections.testimonial')
-<!-- Testimonial-Area-End -->
+{{-- @include('frontend.sections.testimonial')
+<!-- Testimonial-Area-End --> --}}
 
 <!-- Blog-Area-Start -->
 @include('frontend.sections.blog')

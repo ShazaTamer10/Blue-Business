@@ -77,12 +77,12 @@
                 </div>
 
                 {{-- Content Description --}}
-                <div class="form-group row mb-4">
+                {{-- <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content Description</label>
                   <div class="col-sm-12 col-md-7">
                     <textarea name="content_description" class="form-control" rows="4">{{ old('content_description', $course->content_description) }}</textarea>
                   </div>
-                </div>
+                </div> --}}
 
                 {{-- Submit Button --}}
                 <div class="form-group row mb-4">

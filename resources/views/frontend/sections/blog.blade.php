@@ -21,7 +21,7 @@
                         <div class="blog-content">
                             <h3 class="title"><a href="{{route('show.blog', $blog->id)}}">{{$blog->title}}</a></h3>
                             <div class="desc">
-                                <p>{!! Str::limit($blog->description,150,'...') !!} </p>
+                                <p>{!! Str::limit($blog->description,35,'...') !!} </p>
                             </div>
                             <a href="{{route('show.blog', $blog->id)}}" class="button-primary-trans mouse-dir">Read More <span
                                     class="dir-part"></span> <i class="fal fa-arrow-right"></i></a>
