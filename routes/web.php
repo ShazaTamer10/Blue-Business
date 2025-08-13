@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TyperTitleController;
 use App\Http\Controllers\Admin\CourseApplicationController;
+use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\CourseSectionSetting;
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -74,6 +75,8 @@ Route::get('portfolio', [HomeController::class, 'portfolio'])->name('portfolio')
 Route::get('portfolio-details/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
 Route::get('blog-details/{id}', [HomeController::class, 'showBlog'])->name('show.blog');
 Route::get('blogs', [HomeController::class, 'blog'])->name('blog');
+Route::get('teams', [HomeController::class, 'team'])->name('team');
+
 Route::post('contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('courses', [HomeController::class, 'course'])->name('course');
 Route::get('course-details/{id}', [HomeController::class, 'showCourse'])->name('show.course');
@@ -83,6 +86,7 @@ Route::post('/courses/{id}/apply', [CourseController::class, 'submitApplication'
 
 Route::get('course/{id}/contents', [HomeController::class, 'showCourseContents'])
     ->name('course.contents');
+
 
 
 
@@ -102,6 +106,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin','as' => 'admin.'], f
     Route::resource('course', CourseController::class);
     Route::resource('course.contents', CourseContentController::class);
     Route::resource('course-applications', CourseApplicationController::class);
+    Route::resource('team',TeamMemberController::class);
+
 
 
    // Route::resource('course-section-setting', CourseSectionSetting::class);

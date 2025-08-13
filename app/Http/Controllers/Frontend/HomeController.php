@@ -14,7 +14,7 @@ use App\Models\Service;
 use App\Models\Blog;
 use App\Models\Course;
 use App\Models\CourseContent;
-
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,6 +31,7 @@ class HomeController extends Controller
         $blogs= Blog::latest()->take(5)->get();
         $blogTitle= BlogSectionSetting::first();
         $courses=Course::all();
+         $teamMembers = TeamMember::all();
 
         return view( 'frontend.home' ,compact(
             'hero',
@@ -41,7 +42,8 @@ class HomeController extends Controller
         'portfolioItems',
         'blogs',
         'blogTitle',
-        'courses'
+        'courses',
+        'teamMembers'
 
     ));
     }
@@ -99,6 +101,7 @@ class HomeController extends Controller
         return view('frontend.course', compact('courses'));
     }
 
+   
     public function contact(Request $request)
     {
         dd($request->all());

@@ -43,7 +43,7 @@
     </div>
 </div>
 
- <div class="description">
+ <div class="description" style="word-wrap: break-word; white-space: normal; text-align: center;">
                     {!!$portfolio->description!!}
 
                 </div>

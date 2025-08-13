@@ -39,7 +39,7 @@
                 <figure class="image-block">
                     <img class="img-fix" src="{{asset($blog->image)}}" alt="">
                 </figure>
-                <div class="description">
+                <div class="description" style="word-wrap: break-word; white-space: normal; text-align: center;">
                 {!!$blog->description!!}
                 </div>
                 <div class="single-navigation">

@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <!-- Contact-Form -->
-                <form action="{{ route('contact') }}" method="POST" class="contact-form" id="contact-form" >
+                <form action="" method="POST" class="contact-form" id="contact-form" >
                     @csrf
                     <div class="row">
                         <div class="col-md-4">

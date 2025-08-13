@@ -9,6 +9,8 @@ use App\Models\PortfolioItem;
 use App\Models\PortfolioImage;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class PortfolioItemController extends Controller
 {
@@ -86,47 +88,69 @@ class PortfolioItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+   public function edit(string $id)
+{
+    $categories = Category::all();
+    $portfolioItem = PortfolioItem::findOrFail($id);
+    $additionalImages = PortfolioImage::where('portfolio_item_id', $id)->get();
 
-    {
-        $categories=Category::all();
-        $portfolioItem= PortfolioItem::findOrFail($id);
-        return view('admin.portfolio-item.edit',compact('categories','portfolioItem'));
-    }
+    return view('admin.portfolio-item.edit', compact('categories', 'portfolioItem', 'additionalImages'));
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
+    
+  public function update(Request $request, string $id)
+{
+    $request->validate([
+        'image' => ['image', 'max:5000'],
+        'title' => ['required', 'max:200'],
+        'description' => ['required'],
+        'category_id' => ['required', 'numeric'],
+        'client' => ['max:200'],
+        'website' => ['nullable', 'url'],
+        'additional_images.*' => ['nullable', 'image', 'max:5000'],
+    ]);
 
-        $request->validate([
-            'image'=>['image', 'max:5000'],
-            'title'=> ['required', 'max:200'],
-            'description'=> ['required'],
-            'category_id'=>['required','numeric'],
-            'client'=>['max:200'],
-            'website' => ['nullable', 'url'],
+    $portfolioItem = PortfolioItem::findOrFail($id);
 
+    // Handle main image
+    $imagePath = handleUpload('image', $portfolioItem);
+    $portfolioItem->image = (!empty($imagePath) ? $imagePath : $portfolioItem->image);
+    $portfolioItem->title = $request->title;
+    $portfolioItem->description = $request->description;
+    $portfolioItem->category_id = $request->category_id;
+    $portfolioItem->client = $request->client;
+    $portfolioItem->website = $request->website;
+    $portfolioItem->save();
 
-
-        ]);
-
-        $portfolioItem= PortfolioItem::findOrFail($id);
-        $imagePath =handleUpload('image',$portfolioItem);
-
-        $portfolioItem->image= (!empty($imagePath) ? $imagePath : $portfolioItem->image);
-        $portfolioItem->title=$request->title;
-        $portfolioItem->description=$request->description;
-        $portfolioItem->category_id=$request->category_id;
-        $portfolioItem->client=$request->client;
-        $portfolioItem->website=$request->website;
-        $portfolioItem->save();
-        toastr()->success('Profile Item Created Successfully!', 'Success');
-        return redirect()->route('admin.portfolio-item.index');
-
-
+    /** 🔹 Remove selected additional images */
+    if ($request->has('remove_images')) {
+        foreach ($request->remove_images as $removeId) {
+            $image = PortfolioImage::find($removeId);
+            if ($image) {
+                Storage::disk('public')->delete($image->image);
+                $image->delete();
+            }
+        }
     }
+
+    /** 🔹 Add new additional images */
+    if ($request->hasFile('additional_images')) {
+        foreach ($request->file('additional_images') as $imageFile) {
+            $path = $imageFile->store('portfolio/images', 'public');
+            PortfolioImage::create([
+                'portfolio_item_id' => $portfolioItem->id,
+                'image' => $path,
+            ]);
+        }
+    }
+
+    toastr()->success('Portfolio Item Updated Successfully!', 'Success');
+    return redirect()->route('admin.portfolio-item.index');
+}
+
 
     /**
      * Remove the specified resource from storage.

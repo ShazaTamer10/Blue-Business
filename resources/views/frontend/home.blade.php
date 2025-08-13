@@ -38,12 +38,14 @@
 <!-- Blog-Area-End -->
 
 <!-- Blog-Area-Start -->
-@include('frontend.sections.team')
+@include('frontend.sections.team', ['teamMembers' => $teamMembers])
 <!-- Blog-Area-End -->
 
 <!-- Contact-Area-Start -->
-@include('frontend.sections.contact')
+{{-- @include('frontend.sections.contact') --}}
 <!-- Contact-Area-End -->
+<br>
+<br>
 @endsection
 
 

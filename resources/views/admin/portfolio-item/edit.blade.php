@@ -80,6 +80,36 @@
 
                         </div>
 
+                        <div class="form-group row mb-4">
+    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Additional Images</label>
+    <div class="col-sm-12 col-md-7">
+
+        <div class="form-group row mb-4">
+    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Additional Images</label>
+    <div class="col-sm-12 col-md-7">
+
+        {{-- Show Existing Additional Images --}}
+        @if(isset($additionalImages) && $additionalImages->count() > 0)
+            <div class="mb-3">
+                @foreach($additionalImages as $img)
+                    <div style="display:inline-block; position:relative; margin:5px;">
+                        <img src="{{ asset('storage/' . $img->image) }}" width="100" height="100" style="object-fit:cover; border:1px solid #ddd; border-radius:4px;">
+                        <label style="position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:12px; cursor:pointer; padding:2px 5px; border-radius:50%;">
+                            <input type="checkbox" name="remove_images[]" value="{{ $img->id }}" style="display:none;">
+                            ✕
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        {{-- Upload New Additional Images --}}
+        <input type="file" name="additional_images[]" multiple class="form-control">
+        <small class="text-muted">You can select multiple images.</small>
+    </div>
+</div>
+
+
 
                    <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>

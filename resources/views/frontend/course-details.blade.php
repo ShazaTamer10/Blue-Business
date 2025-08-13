@@ -52,7 +52,7 @@
                 @endif
 
                 <!-- Course Description -->
-                <div class="description">
+                <div class="description" style="word-wrap: break-word; white-space: normal; text-align: center;">
                     {!! $course->description !!}
                 </div>
 

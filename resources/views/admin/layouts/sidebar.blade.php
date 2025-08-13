@@ -66,6 +66,9 @@
         <li><a class="nav-link" href="{{route('admin.about.index')}}"><i class="far fa-square"></i> <span>About</span></a></li>
         </ul>
     </li>
+    <li><a class="nav-link" href="{{route('admin.team.index')}}"><i class="far fa-square"></i> <span>Team</span></a></li>
+        </ul>
+    </li>
 
         <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Portfolio</span></a>
